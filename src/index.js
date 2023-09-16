@@ -24,7 +24,7 @@ Sequelize
     console.error('Unable to connect to the database:', err);
   });
 
-connectToDatabase();
+// connectToDatabase();
 
 
 app.listen(3005, async ()=>{
