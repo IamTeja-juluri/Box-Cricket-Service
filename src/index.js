@@ -1,6 +1,6 @@
 const express = require('express');
 const { ServerConfig,Sequelize }=require('./config');
-// const retrieveSecrets = require("./config/retrieveSecrets");
+const retrieveSecrets = require("./config/retrieveSecrets");
 const apiRoutes = require('./routes');
 const fs = require('fs');
 const dotenv = require('dotenv');
@@ -27,11 +27,11 @@ Sequelize
 // connectToDatabase();
 
 
-app.listen(ServerConfig.PORT, async ()=>{
+app.listen(3005, async ()=>{
 
   try{  
-      // const secretsString = await retrieveSecrets();
-      // await fs.writeFile(".env", secretsString); 
+      const secretsString = await retrieveSecrets();
+      await fs.writeFile(".env", secretsString); 
       // Define the JSON configuration file path
       console.log(`Successfully started the server on PORT :${ServerConfig.PORT}`)
   }catch(error){
