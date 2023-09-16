@@ -2,7 +2,7 @@ const express = require('express');
 const { ServerConfig,Sequelize }=require('./config');
 const retrieveSecrets = require("./config/retrieveSecrets");
 const apiRoutes = require('./routes');
-const fs = require('fs');
+const fs = require('fs').promises;
 const dotenv = require('dotenv');
 const connectToDatabase = require('./config/connectToDatabase')
 
@@ -34,7 +34,7 @@ app.listen(3005, async ()=>{
       await fs.writeFile(".env", secretsString); 
       console.log(secretsString);
       // Define the JSON configuration file path
-      console.log(`Successfully started the server on PORT :${3005}`)
+      console.log(`Successfully started the server on PORT :3005`)
   }catch(error){
       console.log("Error in setting environment variables", error);
       process.exit(-1);
