@@ -16,7 +16,8 @@ async function createBoxCricket(req,res){
             size:req.body.size,
             is24hrsOpen:req.body.is24hrsOpen,
             ownerContact:req.body.ownerContact,
-            ownerName:req.body.ownerName
+            ownerName:req.body.ownerName,
+            photo: req.body.photo
        });
        SuccessResponse.data=boxcricket;
        return res

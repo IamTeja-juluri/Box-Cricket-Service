@@ -2,7 +2,7 @@
 const {
   Model
 } = require('sequelize');
-const sequelize = require('../config/db'); // Import the Sequelize instance from your configuration module
+const db = require('../config/database.js'); // Import the Sequelize instance from your configuration module
 
 module.exports = (sequelize, DataTypes) => {
   class City extends Model {
@@ -28,14 +28,15 @@ module.exports = (sequelize, DataTypes) => {
   City.init({
     name:{
       type:DataTypes.STRING,
-      allowNull:false
+      allowNull:false,
+      unique:true
     },
     stateId: {
       type:DataTypes.INTEGER,
       allowNull:false
     }
   }, {
-    sequelize,
+    sequelize:db,
     modelName: 'City',
   });
   return City;

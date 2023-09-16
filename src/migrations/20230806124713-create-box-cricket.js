@@ -27,6 +27,9 @@ module.exports = {
         type:Sequelize.STRING,
         allowNull:false
       },
+      photo:{
+       type: Sequelize.STRING
+      },
       price:{
         type:Sequelize.FLOAT,
         allowNull:false

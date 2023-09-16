@@ -1,8 +1,6 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
-const sequelize = require('../config/db'); // Import the Sequelize instance from your configuration module
+const { Model } = require('sequelize');
+const db = require('../config/database.js'); // Import the Sequelize instance from your configuration module
 
 module.exports = (sequelize, DataTypes) => {
   class State extends Model {
@@ -21,13 +19,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   
-  State.init({
+  State.init(
+  {
     name: {
       type:DataTypes.STRING,
-      allowNull:false
+      allowNull:false,
+      unique:true
     }
   }, {
-    sequelize,
+    sequelize: db,
     modelName: 'State',
   });
   return State;

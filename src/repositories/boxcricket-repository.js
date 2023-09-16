@@ -1,6 +1,5 @@
 const CrudRepository= require('./crud-repository');
-const {Sequelize,Op}=require('sequelize');
-const { BoxCricket,Area,City,State}=require('../models');
+const { BoxCricket,Area,City,State }=require('../models');
 
 class BoxCricketRepository extends CrudRepository{
     
@@ -22,13 +21,6 @@ class BoxCricketRepository extends CrudRepository{
          if (conditions.length > 0) {
             whereCondition = conditions
         } 
-
-
-        // if (conditions.length > 0) {
-        //     whereCondition = {
-        //         [Op.or]: conditions,
-        //     }
-        // } 
 
         const response = await State.findAll({
             where:query.stateName ?{

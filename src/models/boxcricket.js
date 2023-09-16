@@ -2,7 +2,8 @@
 const {
   Model
 } = require('sequelize');
-const sequelize = require('../config/db'); // Import the Sequelize instance from your configuration module
+const db = require('../config/database.js'); // Import the Sequelize instance from your configuration module
+ // Import the Sequelize instance from your configuration module
 
 const {Enums} = require('../utils/common');
 
@@ -36,6 +37,9 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull:false
     },
+    photo:{
+      type:DataTypes.STRING
+    },
     price:{
       type:DataTypes.FLOAT,
       allowNull:false
@@ -59,7 +63,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false
     }
   }, {
-    sequelize,
+    sequelize: db,
     modelName: 'BoxCricket',
   });
   return BoxCricket;

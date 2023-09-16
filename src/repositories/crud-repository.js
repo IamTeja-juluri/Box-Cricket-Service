@@ -25,10 +25,15 @@ class CrudRepository{
     }
 
     async get(data){
-        const response=await this.model.findByPk(data);
-        if(!response)
-            throw new AppError("Not able to find resource",StatusCodes.NOT_FOUND);
-        return response;
+        try{
+            const response=await this.model.findByPk(data);
+            if(!response)
+                throw new AppError("Not able to find resource",StatusCodes.NOT_FOUND);
+            return response;
+        }catch (err) {
+            console.log('errorr=',err)
+            throw new AppError(err,err.StatusCodes)   
+        }
     }
 
     async getAll(){

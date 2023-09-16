@@ -1,50 +1,43 @@
 const express = require('express');
-const { ServerConfig }=require('./config');
-const mysql = require('mysql2/promise');
+const { ServerConfig,Sequelize }=require('./config');
+// const retrieveSecrets = require("./config/retrieveSecrets");
+const apiRoutes = require('./routes');
+const fs = require('fs');
+const dotenv = require('dotenv');
+const connectToDatabase = require('./config/connectToDatabase')
 
-
-const apiRoutes=require('./routes')
+// Load environment variables from .env
+dotenv.config();
 
 const app=express();
-
-
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-
 app.use('/api',apiRoutes)
 
-const pool=mysql.createPool({
-    host: ServerConfig.DB_HOST,
-    port: ServerConfig.DB_PORT,
-    user: ServerConfig.DB_USER,
-    password: ServerConfig.DB_PASSWORD,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
-
-app.get('/connectionCheck', async (req, res) => {
-    try {
-        const connection = await pool.getConnection();
-        
-        const [rows] = await connection.query('SHOW DATABASES');
-        
-        // connection.release(); // Release the connection after executing the query
-        
-        // The list of database names is in the 'Database' column of the result rows
-        const databaseNames = rows.map(row => row.Database);
-        
-        console.log('Databases:', databaseNames);
-
-        res.json(databaseNames)  
-    } catch (error) {
-        console.error('Error listing databases:', error.message);
-      }
+// Initialize Sequelize
+Sequelize
+  .sync()
+  .then(() => {
+    console.log('Database is connected.');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
   });
 
-app.listen(3005, async ()=>{
-    
-    console.log(`Successfully started the server on PORT :${ServerConfig.PORT}`)
+// connectToDatabase();
+
+
+app.listen(ServerConfig.PORT, async ()=>{
+
+  try{  
+      // const secretsString = await retrieveSecrets();
+      // await fs.writeFile(".env", secretsString); 
+      // Define the JSON configuration file path
+      console.log(`Successfully started the server on PORT :${ServerConfig.PORT}`)
+  }catch(error){
+      console.log("Error in setting environment variables", error);
+      process.exit(-1);
+    }  
   
 });
 
