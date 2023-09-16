@@ -2,7 +2,7 @@
 const {
   Model
 } = require('sequelize');
-const sequelize = require('../config/db'); // Import the Sequelize instance from your configuration module
+const sequelize = require('../config/database'); // Import the Sequelize instance from your configuration module
 
 module.exports = (sequelize, DataTypes) => {
   class Area extends Model {
