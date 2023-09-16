@@ -24,7 +24,7 @@ Sequelize
     console.error('Unable to connect to the database:', err);
   });
 
-// connectToDatabase();
+connectToDatabase();
 
 
 app.listen(3005, async ()=>{
@@ -33,7 +33,7 @@ app.listen(3005, async ()=>{
       const secretsString = await retrieveSecrets();
       await fs.writeFile(".env", secretsString); 
       // Define the JSON configuration file path
-      console.log(`Successfully started the server on PORT :${ServerConfig.PORT}`)
+      console.log(`Successfully started the server on PORT :${3005}`)
   }catch(error){
       console.log("Error in setting environment variables", error);
       process.exit(-1);
