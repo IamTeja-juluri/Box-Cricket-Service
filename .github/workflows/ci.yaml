@@ -9,10 +9,19 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    strategy:
+        matrix:
+            node-version: [16.x]
+
     steps:
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
     - name: Checkout code
       uses: actions/checkout@v2
-
+          
     - name: SSH and deploy
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
